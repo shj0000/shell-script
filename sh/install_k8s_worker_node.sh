@@ -71,7 +71,7 @@ systemctl enable --now cri-docker
 # systemctl status cri-docker
 
 # 쿠버네티스 레포지터리를 사용하기 위한 패키지 설치
-apt install apt-transport-https ca-certificates curl
+apt install -y apt-transport-https ca-certificates curl
 
 # 공개 사이닝 키설정
 curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -81,7 +81,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 
 # 설치
 apt update
-apt install kubelet kubeadm kubectl
+apt install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 
 # 설치 확인
