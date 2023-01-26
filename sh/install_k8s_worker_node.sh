@@ -70,6 +70,11 @@ systemctl daemon-reload
 systemctl enable --now cri-docker
 # systemctl status cri-docker
 
+
+# 쿠버네티스 설치
+
+swapoff -a && sed -i '/swap/s/^/#/' /etc/fstab
+
 # 쿠버네티스 레포지터리를 사용하기 위한 패키지 설치
 apt install -y apt-transport-https ca-certificates curl
 
