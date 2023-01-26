@@ -26,9 +26,9 @@ alias wt='watch -d -n1 '
 alias cdr='cd /'
 alias cdt='cd ..'
 alias cdp='cd -'
- 
+alias p='cd -'
+
 ## a quick way to get out of current directory ##
-alias -='cd -'
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
