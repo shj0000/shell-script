@@ -28,6 +28,7 @@ alias cdt='cd ..'
 alias cdp='cd -'
  
 ## a quick way to get out of current directory ##
+alias -='cd -'
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -54,41 +55,61 @@ fff() {
 ## kubectl
 alias k='kubectl'
 
+
+## kubectl log
+alias kl='kubectl log'
+
+
+## kubectl apply
+alias ka='kubectl apply -f'
+
+## kubectl delete
+alias kd='kubectl delete -f'
+
+## kubectl replace
+alias kr='kubectl replace --force -f'
+
+
+## kubectl describe
+alias kdb='kubectl describe'
+
+## kubectl describe
+alias kdbn='kubectl describe no'
+
+## kubectl describe
+alias kdbp='kubectl describe pod -A'
+
+## kubectl describe
+alias kdbs='kubectl describe service -A'
+
+
 ## kubectl get
 alias kg='kubectl get'
 
-## kubectl get all
-alias kga='kubectl get all'
-
 ## kubectl get all -A
-alias kgaa='kubectl get all -A'
-
-## kubectl get po
-alias kgp='kubectl get po'
+alias kga='kubectl get all -A'
 
 ## kubectl get po -A
-alias kgpa='kubectl get po -A'
+alias kgp='kubectl get po -A'
 
 ## kubectl get po -A -o wide
-alias kgpaw='kubectl get po -A -o wide'
+alias kgpa='kubectl get po -A -o wide'
 
 ## kubectl get service
 alias kgs='kubectl get service'
 
 ## kubectl get service -A
-alias kgsa='kubectl get service -A'
-
-## kubectl get service -A
-alias kgsaw='kubectl get service -A -o wide'
+alias kgsa='kubectl get service -A -o wide'
 
 ## kubectl get no
-alias kgn='kubectl get no'
+alias kgn='kubectl get no -A'
 
 ## kubectl get no
-alias kgno='kubectl get no'
+alias kgna='kubectl get no -A -o wide'
 
 ## kubectl get namespace
 alias kgns='kubectl get namespace'
+
 
 ## kubctl ns
 alias kns='kubctl ns'
