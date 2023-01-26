@@ -96,7 +96,7 @@ alias kgp='kubectl get po -A'
 alias kgpa='kubectl get po -A -o wide'
 
 ## kubectl get service
-alias kgs='kubectl get service -'
+alias kgs='kubectl get service -A'
 
 ## kubectl get service -A
 alias kgsa='kubectl get service -A -o wide'
