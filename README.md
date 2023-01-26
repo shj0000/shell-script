@@ -30,10 +30,14 @@ kubeadm token list
 ## find hash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 
+## reset 
+kubeadm reset --cri-socket unix:///var/run/cri-dockerd.sock
+
+
 ## join
 kubeadm join 192.168.0.18:6443 --token 08ypuq.0j42qn5l0tsxj2ra \
         --discovery-token-ca-cert-hash sha256:7a92f3dfe9bcb1aca564854801349e9b8b70a216fb5499e25ce2d7b071725cad \
-	--cri-socket unix:///var/run/cri-dockerd.sock
+	--cri-socket unix:///var/run/cri-dockerd.sock --v=5
 
 ## network
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
