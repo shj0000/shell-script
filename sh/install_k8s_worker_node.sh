@@ -25,7 +25,7 @@ apt install ca-certificates curl gnupg lsb-release
 
 # Docker GPG Key 추가
 mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # 레포지터리 설정
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
@@ -49,7 +49,7 @@ git clone https://github.com/Mirantis/cri-dockerd.git
 ## install
 # Run these commands as root
 ###Install GO###
-wget https://storage.googleapis.com/golang/getgo/installer_linux
+wget https://storage.googleapis.com/golang/getgo/installer_linux -O ./installer_linux
 chmod +x ./installer_linux
 ./installer_linux
 source ~/.bash_profile
