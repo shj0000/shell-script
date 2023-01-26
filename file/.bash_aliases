@@ -89,6 +89,12 @@ alias kg='kubectl get'
 ## kubectl get all -A
 alias kga='kubectl get all -A'
 
+## kubectl get deployment -A
+alias kgd='kubectl get deployment -A'
+
+## kubectl get po -A -o wide
+alias kgda='kubectl get deployment -A -o wide'
+
 ## kubectl get po -A
 alias kgp='kubectl get po -A'
 
