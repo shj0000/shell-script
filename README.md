@@ -11,7 +11,10 @@
 
 ### Install
 
-#### k8s
+#### k8s (Ubuntu 22)
+
+#####  node
+* ...
 
 ##### worker node
 
