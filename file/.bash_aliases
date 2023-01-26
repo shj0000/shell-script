@@ -56,8 +56,8 @@ fff() {
 alias k='kubectl'
 
 
-## kubectl log
-alias kl='kubectl log'
+## kubectl logs
+alias kl='kubectl logs'
 
 
 ## kubectl apply
