@@ -13,7 +13,7 @@
 
 #### k8s (Ubuntu 22)
 
-#####  node
+##### master node
 * ...
 
 ##### worker node
