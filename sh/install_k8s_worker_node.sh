@@ -1,5 +1,17 @@
 #! /bin/bash
 
+echo start
+# https://www.linuxtechi.com/install-kubernetes-on-ubuntu-22-04/
+# Step 1) Set hostname and add entries in the hosts file
+# sudo hostnamectl set-hostname "k8smaster.example.net"
+# exec bash
+
+# Step 2) Disable swap & add kernel settings
+# Execute beneath swapoff and sed command to disable swap. Make sure to run the following commands on all the nodes.
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+
 # br_netfilter 모듈 로드
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
