@@ -85,8 +85,6 @@ systemctl enable --now cri-docker
 
 # 쿠버네티스 설치
 
-swapoff -a && sed -i '/swap/s/^/#/' /etc/fstab
-
 # 쿠버네티스 레포지터리를 사용하기 위한 패키지 설치
 apt install -y apt-transport-https ca-certificates curl
 
@@ -105,3 +103,21 @@ apt-mark hold kubelet kubeadm kubectl
 kubeadm version
 kubelet --version
 kubectl version
+
+
+# So, to start interacting with cluster, run following commands from the master node,
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# Now, try to run following kubectl commands to view cluster and node status
+kubectl cluster-info
+kubectl get nodes
+
+
+
+
+
+
+
+
