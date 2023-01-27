@@ -19,6 +19,18 @@
 ```
 ( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_master_node.sh | bash > ./install_k8s_master.log ) 
 ```
+```bash
+kubeadm init --pod-network-cidr=10.0.0.0/16 \
+   --cri-socket unix:///var/run/cri-dockerd.sock \
+   --apiserver-advertise-address=10.0.0.197 \
+   --pod-network-cidr=10.244.0.0/16 \ 
+   --v=5
+
+kubeadm reset  --cri-socket unix:///var/run/cri-dockerd.sock
+
+
+```
+
 
 ##### worker node
 ```
