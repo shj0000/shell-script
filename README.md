@@ -14,11 +14,10 @@
 #### k8s (Ubuntu 22)
 
 ##### master node
-* ...
+* `( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_master_node.sh | bash ) > ./install_k8s_master.log`
 
 ##### worker node
-
-* `wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_worker_node.sh | bash`
+* `( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_worker_node.sh | bash ) > ./install_k8s_worker.log`
 
 
 * 추가 과정 (통합 필요, 인자 설정)
