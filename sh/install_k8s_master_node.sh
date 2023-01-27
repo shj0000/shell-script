@@ -1,95 +1,81 @@
 #! /bin/bash
 
-# br_netfilter 모듈 로드
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+# https://www.linuxtechi.com/install-kubernetes-on-ubuntu-22-04/
+# Step 1) Set hostname and add entries in the hosts file
+sudo hostnamectl set-hostname "k8smaster.example.net"
+exec bash
+
+# Step 2) Disable swap & add kernel settings
+# Execute beneath swapoff and sed command to disable swap. Make sure to run the following commands on all the nodes.
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+# Load the following kernel modules on all the nodes,
+sudo tee /etc/modules-load.d/containerd.conf <<EOF
 overlay
 br_netfilter
 EOF
 
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
-# 커널 파라미터 수정
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
+# Set the following Kernel parameters for Kubernetes, run beneath tee command
+sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
-EOF
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF 
 
-# sysctl 파라미터 적용
-sysctl --system
+# Reload the above changes, run
+sudo sysctl --system
 
-# HTTPS로 저장소를 사용하기 위한 패키지 설치
-apt update
-apt install ca-certificates curl gnupg lsb-release
+# Step 3) Install containerd run time
+# Install containerd run time
+# In this guide, we are using containerd run time for our Kubernetes cluster. So, to install containerd, first install its dependencies.
+sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 
-# Docker GPG Key 추가
-mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/docker.gpg
+# Enable docker repository
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-# 레포지터리 설정
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    
-# 도커 엔진 설치
-apt update
-apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+# Now, run following apt command to install containerd
+sudo apt update
+sudo apt install -y containerd.io
 
-# 도커 설치 확인
-docker version
+# Configure containerd so that it starts using systemd as cgroup.
+containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-# ? https://passwd.tistory.com/entry/kubeadmcri-dockerd-Kubernetes-%EC%84%A4%EC%B9%98-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EC%83%9D%EC%84%B1 
+# Restart and enable containerd service
+sudo systemctl restart containerd
+sudo systemctl enable containerd
 
+# Step 4) Add apt repository for Kubernetes
+# Execute following commands to add apt repository for Kubernetes
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
-# 쿠버네티스 1.24부터는 Docker Container Runtime이 쿠버네티스와 호환되지 않아 cri-dockerd 설치가 추가로 필요하다.
-# https://github.com/Mirantis/cri-dockerd
+# Step 5) Install Kubernetes components Kubectl, kubeadm & kubelet
+# Install Kubernetes components Kubectl, kubeadm & kubelet
+sudo apt update
+sudo apt install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 
-## git clone
-git clone https://github.com/Mirantis/cri-dockerd.git
-## install
-# Run these commands as root
-###Install GO###
-wget https://storage.googleapis.com/golang/getgo/installer_linux -O ./installer_linux
-chmod +x ./installer_linux
-./installer_linux
-source ~/.bash_profile
+# Step 6) Initialize Kubernetes cluster with Kubeadm command
+sudo kubeadm init --control-plane-endpoint=k8smaster.example.net
 
-cd cri-dockerd
-mkdir bin
-go build -o bin/cri-dockerd
-mkdir -p /usr/local/bin
-install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
-cp -a packaging/systemd/* /etc/systemd/system
-sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
-systemctl daemon-reload
-systemctl enable cri-docker.service
-systemctl enable --now cri-docker.socket
+# So, to start interacting with cluster, run following commands from the master node,
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-# cri-docker 시작
-systemctl daemon-reload
-systemctl enable --now cri-docker
-# systemctl status cri-docker
+# Now, try to run following kubectl commands to view cluster and node status
+kubectl cluster-info
+kubectl get nodes
 
 
-# 쿠버네티스 설치
 
-swapoff -a && sed -i '/swap/s/^/#/' /etc/fstab
 
-# 쿠버네티스 레포지터리를 사용하기 위한 패키지 설치
-apt install -y apt-transport-https ca-certificates curl
 
-# 공개 사이닝 키설정
-curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
-# 쿠버네티스 레포지터리 추가
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# 설치
-apt update
-apt install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
-
-# 설치 확인
-kubeadm version
-kubelet --version
-kubectl version
