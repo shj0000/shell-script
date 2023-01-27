@@ -1,9 +1,10 @@
 #! /bin/bash
 
+echo start
 # https://www.linuxtechi.com/install-kubernetes-on-ubuntu-22-04/
 # Step 1) Set hostname and add entries in the hosts file
-sudo hostnamectl set-hostname "k8smaster.example.net"
-exec bash
+# sudo hostnamectl set-hostname "k8smaster.example.net"
+# exec bash
 
 # Step 2) Disable swap & add kernel settings
 # Execute beneath swapoff and sed command to disable swap. Make sure to run the following commands on all the nodes.
