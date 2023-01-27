@@ -65,7 +65,7 @@ sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # Step 6) Initialize Kubernetes cluster with Kubeadm command
-sudo kubeadm init --control-plane-endpoint=k8smaster.example.net
+# sudo kubeadm init --control-plane-endpoint=k8smaster.example.net
 
 # So, to start interacting with cluster, run following commands from the master node,
 mkdir -p $HOME/.kube
