@@ -17,7 +17,7 @@
 
 ##### master node
 ```
-( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_master_node.sh | bash ) > ./install_k8s_master.log
+( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_master_node.sh | bash > ./install_k8s_master.log ) 
 ```
 
 ##### worker node
