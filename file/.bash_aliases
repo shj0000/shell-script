@@ -8,6 +8,10 @@ alias mv='mv -i'
 ## cp
 alias cp='cp -i'
 
+## systemctl
+alias sys='systemctl'
+alias syss='systemctl status'
+
 ## ls
 alias llh='ls -alFh'
 
