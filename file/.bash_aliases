@@ -72,8 +72,8 @@ alias kd='kubectl delete -f'
 
 ## kubectl replace
 alias kr='kubectl replace --force -f'
-alias krp=k replace --force -f $1 -n test && kgpa && sleep 10 && k logs $2 -n $3
-alias krpt=k replace --force -f $1 -n test && kgpa && sleep 10 && k logs $2 -n test
+alias krp=kubectl replace --force -f $1 -n test && kgp && sleep 10 && k logs $2 -n $3
+alias krpt=kubectl replace --force -f $1 -n test && kgp && sleep 10 && k logs $2 -n test
 
 ## kubectl describe
 alias kdb='kubectl describe'
