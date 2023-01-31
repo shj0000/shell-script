@@ -6,6 +6,9 @@ echo start
 # sudo hostnamectl set-hostname "k8smaster.example.net"
 # exec bash
 
+sudo apt install golang-go
+
+
 # Step 2) Disable swap & add kernel settings
 # Execute beneath swapoff and sed command to disable swap. Make sure to run the following commands on all the nodes.
 sudo swapoff -a
