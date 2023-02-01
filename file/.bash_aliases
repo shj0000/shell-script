@@ -74,11 +74,11 @@ alias kd='kubectl delete -f'
 alias kr='kubectl replace --force -f'
 krp()
 {
-    kubectl replace --force -f $1 -n test && kgp && sleep 10 && k logs $2 -n $3
+    kubectl replace --force -f $1 -n test && timeout 10s watch -d -n1 kubectl get po -A && k logs $2 -n $3
 }
 krpt()
 {
-    kubectl replace --force -f $1 -n test && kgp && sleep 10 && k logs $2 -n test
+    kubectl replace --force -f $1 -n test && timeout 10s watch -d -n1 kubectl get po -A && k logs $2 -n test
 }
 
 
