@@ -37,7 +37,7 @@ kubeadm reset  --cri-socket unix:///var/run/cri-dockerd.sock
 ( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/install_k8s_worker_node.sh | bash ) > ./install_k8s_worker.log
 ```
 
-
+* https://stackoverflow.com/questions/55725477/authenticated-as-anonymous-groups-that-you-are-in-error-when-checking-kubectl
 * 추가 과정 (통합 필요, 인자 설정)
 ```bash
 ## find token
