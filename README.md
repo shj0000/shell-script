@@ -17,6 +17,9 @@
 ( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | sudo bash ) && bash
 ```
 
+### Crontab > Auto Remove
+* ...
+
 ### Install
 
 #### k8s (Ubuntu 22)
