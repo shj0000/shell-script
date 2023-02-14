@@ -11,8 +11,12 @@ FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 # Append history immediately after each command
-LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(echo $USER)_$(date +%F).log'
+LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(id -u -n)_$(date +%F).log'
 FILE='/etc/profile'
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
+LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(id -u -n)_$(date +%F).log'
+FILE='~/bashrc'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 read -r -d '' LINE << EOM
