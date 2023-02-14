@@ -1,16 +1,20 @@
 #!/bin/bash
 
+# Change max history size
+LINE='HISTFILESIZE=99000'
+FILE='/etc/profile'
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
 # Add timestamp to Linux history
-LINE='export HISTTIMEFORMAT="$USER %F %T -- "'
+LINE='export HISTTIMEFORMAT="%F %T -- "'
 FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 # Append history immediately after each command
-LINE='export PROMPT_COMMAND="history -a"'
+LINE='CUSTOM_HISTORY_FILE=/tmp/hfile_$(date +%F_%T)'
 FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
-# Change max history size
-LINE='HISTFILESIZE=99000'
+LINE='export PROMPT_COMMAND='history -a && echo "$(/bin/rhost)  $(history |tail -1)" >> $CUSTOM_HISTORY_FILE '   PROMPT_COMMAND=""'
 FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
