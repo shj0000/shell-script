@@ -11,7 +11,7 @@
 * apply timestamp
 * max history 증가
 ```
-( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | bash ) && bash
+( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | sudo bash ) && bash
 ```
 
 ### Install
