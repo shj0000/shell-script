@@ -16,7 +16,7 @@ FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(id -u -n)_$(date +%F).log'
-FILE='~/bashrc'
+FILE='/etc/bash.bashrc'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 read -r -d '' LINE << EOM
