@@ -10,7 +10,7 @@ LINE='export PROMPT_COMMAND="history -a"'
 FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
-# Max History Size
+# Change max history size
 LINE='HISTFILESIZE=99000'
 FILE='/etc/profile'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
