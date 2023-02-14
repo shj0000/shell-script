@@ -8,8 +8,9 @@
 ```
 
 ### History
-* apply timestamp
-* max history 증가
+* Add timestamp to Linux history
+* Append history immediately after each command
+* Change max history size
 ```
 ( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | sudo bash ) && bash
 ```
