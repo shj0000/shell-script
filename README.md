@@ -28,6 +28,10 @@
 wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/cent_os_install_docker.sh | sudo bash
 ```
 
+```
+curl -s https://raw.githubusercontent.com/shj0000/shell-script/main/sh/cent_os_install_docker.sh | sudo bash -s
+```
+
 #### k8s (Ubuntu 22)
 
 ##### master node
