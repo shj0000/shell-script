@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE='/etc/bash.bashrc'
+FILE='/etc/profile'
 # Change max history size
 LINE='HISTFILESIZE=99000'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
