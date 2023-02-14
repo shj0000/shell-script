@@ -10,7 +10,8 @@ LINE='export HISTTIMEFORMAT="%F %T -- "'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 
-
+# cenos /etc/bashrc
+# ubuntu /etc/bash.bashrc
 FILE='/etc/bash.bashrc'
 # Append history immediately after each command
 LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(id -u -n)_$(date +%F).log'
