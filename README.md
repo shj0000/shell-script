@@ -9,6 +9,16 @@
 curl -s https://raw.githubusercontent.com/shj0000/shell-script/main/file/aliases/common/.bash_aliases > ~/.bash_aliases && \
 source ~/.bash_aliases
 ```
+```
+FILE='~/.bashrc'
+read -r -d '' LINE << EOM
+if [ -f ~/.bash_aliases ]; then 
+	. ~/.bash_aliases 
+fi 
+EOM
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+```
+
 
 * Commons + k8s
 ```
