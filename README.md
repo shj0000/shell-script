@@ -9,6 +9,7 @@
 curl -s https://raw.githubusercontent.com/shj0000/shell-script/main/file/aliases/common/.bash_aliases > ~/.bash_aliases && \
 source ~/.bash_aliases
 ```
+* Multi Line 작동 불가 (230215)
 ```
 FILE='.bashrc'
 read -r -d '' LINE << EOM
