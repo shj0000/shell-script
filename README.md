@@ -10,7 +10,7 @@ curl -s https://raw.githubusercontent.com/shj0000/shell-script/main/file/aliases
 source ~/.bash_aliases
 ```
 ```
-FILE='~/.bashrc'
+FILE='.bashrc'
 read -r -d '' LINE << EOM
 if [ -f ~/.bash_aliases ]; then 
 	. ~/.bash_aliases 
