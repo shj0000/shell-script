@@ -16,7 +16,7 @@ if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases 
 fi 
 EOM
-grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+fgrep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 ```
 
 
