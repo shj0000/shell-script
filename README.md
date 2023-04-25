@@ -31,9 +31,6 @@ fgrep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 * Append history immediately after each command
 * Change max history size
 * Write Tmp Log File With IP > $(who am i)
-```
-( wget -O - https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | sudo bash ) && bash
-```
 * `unbunt`
 ```
 curl -s https://raw.githubusercontent.com/shj0000/shell-script/main/sh/add_timestamp_history.sh | sudo bash -s
