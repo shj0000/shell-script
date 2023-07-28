@@ -13,8 +13,14 @@ grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 ## cenos /etc/bashrc
 ## ubuntu /etc/bash.bashrc
 FILE='/etc/bash.bashrc'
+
+LINE='HISTORY_FILE_PATH=~/.history/'
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+LINE='mkdir -p $HISTORY_FILE_PATH'
+grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
 # Append history immediately after each command
-LINE='export CUSTOM_HISTORY_FILE=/tmp/hfile_$(id -u -n)_$(date +%F).log'
+LINE='export CUSTOM_HISTORY_FILE=$(echo $HISTORY_FILE_PATH)hfile_$(id -u -n)_$(date +%F).log'
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 
 # Write Detail Log
